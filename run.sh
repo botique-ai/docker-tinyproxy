@@ -91,10 +91,6 @@ setMiscConfig() {
     sed -i -e"s,^StartServers ,StartServers\t1 ," $PROXY_CONF
     checkStatus $? "Set MinSpareServers - Could not edit $PROXY_CONF" \
                    "Set MinSpareServers - Edited $PROXY_CONF successfully."
-		   
-   sed -i -e"s,^ConnectPort,#ConnectPort," $PROXY_CONF
-    checkStatus $? "Set MinSpareServers - Could not edit $PROXY_CONF" \
-                   "Set MinSpareServers - Edited $PROXY_CONF successfully."
 }
 
 enableLogFile() {
@@ -141,6 +137,11 @@ stopService
 export rawRules="$@" && parsedRules=$(parseAccessRules $rawRules) && unset rawRules
 # Set ACL in Tinyproxy config
 setAccess $parsedRules
+
+sed -i -e"s,^ConnectPort,#ConnectPort," $PROXY_CONF
+checkStatus $? "Set ConnectPort - Could not edit $PROXY_CONF" \
+	   "Set ConnectPort - Edited $PROXY_CONF successfully."
+		   
 # Enable log to file
 enableLogFile
 # Start Tinyproxy
