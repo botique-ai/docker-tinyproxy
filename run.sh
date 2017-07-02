@@ -91,6 +91,10 @@ setMiscConfig() {
     sed -i -e"s,^StartServers ,StartServers\t1 ," $PROXY_CONF
     checkStatus $? "Set MinSpareServers - Could not edit $PROXY_CONF" \
                    "Set MinSpareServers - Edited $PROXY_CONF successfully."
+		   
+   sed -i -e"s,^ConnectPort,#ConnectPort," $PROXY_CONF
+    checkStatus $? "Set MinSpareServers - Could not edit $PROXY_CONF" \
+                   "Set MinSpareServers - Edited $PROXY_CONF successfully."
 }
 
 enableLogFile() {
